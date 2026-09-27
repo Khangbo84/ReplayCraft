@@ -241,7 +241,6 @@ export function createPlayerSession(_playerId: string): PlayerReplaySession {
         cameraInitTimeoutsMap: new Map(),
         cameraTransitionTimeoutsMap: new Map(),
         settingCameraType: 1,
-        // Sample resolution (in ticks) for settingCameraType === 5 (Smooth Spline Cam).
         // 1 = one waypoint every tick (smoothest, most system.runTimeout calls),
         // up to 4 = one waypoint every 4 ticks (cheaper, slightly less smooth).
         curveStepTicks: 1,
