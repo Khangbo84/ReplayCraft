@@ -124,7 +124,6 @@ replayCamEase: 0,
 
 // AFTER
 settingCameraType: 1,
-// Sample resolution (in ticks) for settingCameraType === 5 (Smooth Spline Cam).
 // 1 = one waypoint every tick (smoothest, most system.runTimeout calls),
 // up to 4 = one waypoint every 4 ticks (cheaper, slightly less smooth).
 curveStepTicks: 1,  // NEW
