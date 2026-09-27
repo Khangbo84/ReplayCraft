@@ -1,4 +1,4 @@
-# Detailed Changes: JavaScript → TypeScript Conversion
+# Detailed Changes: Add new camera mode
 
 ## File: generate-camera-curve.ts
 ### Status: NEW FILE
