@@ -3,13 +3,7 @@
 ## File: generate-camera-curve.ts
 ### Status: NEW FILE
 
-This is a new file that contains the Catmull-Rom spline algorithm adapted from the original `main.js` standalone script.
-
-**Key Differences from original JS:**
-- Converts from temporary `camera_pos`/`camera_time` arrays (filled during recording) to session-stored control points
-- Adds proper TypeScript interfaces for type safety
-- Includes yaw unwrapping to handle rotation wraparound correctly
-- Configurable tick-based sampling (not frame-based)
+This is a new file that contains the Catmull-Rom spline
 
 **Interfaces Added:**
 ```typescript
@@ -33,19 +27,11 @@ import { generateCameraCurve } from "../camera/generate-camera-curve";
 
 ### Change 2: Type Annotations
 ```typescript
-// BEFORE (JS)
-export function startReplayCam(player, startPoint = 0)
-
-// AFTER (TS)
 export function startReplayCam(player: Player, startPoint: number = 0)
 ```
 
 ### Change 3: EasingType Cast
 ```typescript
-// BEFORE (JS)
-const ease = session.easeTypes[session.replayCamEase];
-
-// AFTER (TS)
 const ease = session.easeTypes[session.replayCamEase] as keyof typeof EasingType;
 ```
 
@@ -86,17 +72,6 @@ if (session.settingCameraType === 5) {
     });
 }
 ```
-
-### Change 6: Updated calculateDistance Type Signature
-```typescript
-// BEFORE
-function calculateDistance(pos1, pos2)
-
-// AFTER
-function calculateDistance(pos1: { x: number; y: number; z: number }, pos2: { x: number; y: number; z: number }): number
-```
-
----
 
 ## File: replay-settings.ts
 ### Status: MODIFIED
@@ -158,29 +133,4 @@ replayCamEase: 0,
 
 ---
 
-## Summary of TypeScript Improvements
 
-| Aspect | JS Version | TS Version |
-|--------|-----------|-----------|
-| Type Safety | None | Full type annotations + interfaces |
-| Function Parameters | Untyped | Typed (Player, number, etc.) |
-| Map Operations | Potential null errors | Non-null assertions (`!`) |
-| Generic Types | Manual casting | Proper `as` casting with type inference |
-| Documentation | JSDoc comments | TypeScript interfaces + comments |
-| IDE Support | Limited | Full autocomplete & type checking |
-
----
-
-## Migration Checklist for Pull Request
-
-- [ ] Place `generate-camera-curve.ts` in `scripts/replay/functions/camera/`
-- [ ] Replace `start-replay-camera.ts` in `scripts/replay/functions/replayControls/`
-- [ ] Replace `replay-settings.ts` in `scripts/replay/ui/settings/`
-- [ ] Replace `create-session.ts` in `scripts/replay/data/`
-- [ ] Update language file (if needed) for new UI string keys:
-  - `"rc1.slider.title.curve.resolution"` (tooltip for curve resolution slider)
-  - Camera type option 5 (may already have a translation for "Smooth" or similar)
-- [ ] Run TypeScript compiler to verify no type errors
-- [ ] Test all 5 camera modes (0-4 unchanged, 5 new)
-- [ ] Verify curve resolution slider works (1-4 ticks)
-- [ ] Test camera cleanup on replay stop
